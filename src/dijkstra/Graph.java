@@ -3,7 +3,7 @@ package dijkstra;
 import java.util.*;
 import javafx.util.Pair;
 
-public class Graph {
+public class Graph<T> {
     private ArrayList<Vertex> Vertices = new ArrayList<>();
 
     public Vertex addvertex(String id) {
@@ -31,8 +31,7 @@ public class Graph {
         newedge.time=tim;
     }
 
-    public Pair<Integer, Map<Vertex,Vertex> > ShortestDistance(Vertex source, Vertex zink)
-    {
+    public Pair<Integer, Map<Vertex,Vertex> > ShortestDistance(Vertex source, Vertex zink) {
         Map<Vertex,Vertex> PredecessorMap= new HashMap<>();
         Map<Vertex,Integer> DistanceMap=new HashMap<>();
         // initialize arrays
@@ -42,42 +41,40 @@ public class Graph {
             PredecessorMap.put(v, null);
         }
 
+        //TODO: implement Dijkstra
 
-
-        //implement Dijkstra
-
-        public int[] Dijkstra(int source) {
-        int[] shortestdistance = new int[matrixgraph.length];
-        int[] predecessor = new int[matrixgraph.length];
-        boolean[] handled = new boolean[matrixgraph.length];
+        int[] shortestdistance = new int[PredecessorMap.size()];
+        int[] predecessor = new int[PredecessorMap.size()];
+        boolean[] handled = new boolean[PredecessorMap.size()];
         //Code goes here
-        for (int i = 0; i < matrixgraph.length; i++) {
+        for (int i = 0; i < PredecessorMap.size(); i++) {
             predecessor[i]=-1;
             handled[i] = false;
             shortestdistance[i] = (int)Double.POSITIVE_INFINITY;
         }
 
-        shortestdistance[source - 1] = 0;
+        // TODO: source is a vertex here, not an integer, change this
+        //shortestdistance[source - 1] = 0;
 
         int v, u;
         int udist, vdist = 200;
-        for (int count = 0; count < matrixgraph.length; count++) {
-            v = findMin(shortestdistance, handled);
+        for (int count = 0; count < PredecessorMap.size(); count++) {
+            //v = findMin(shortestdistance, handled); // TODO: implement a findMin function
             vdist=shortestdistance[v];
             System.out.println("Smallest node " + v+ " distance " +shortestdistance[v]);
-            for (int i = 0; i < matrixgraph.length; i++) {
-                if (matrixgraph[v][i] > 0) {
+            /*
+            for (int i = 0; i < PredecessorMap.size(); i++) {
+                if (PredecessorMap.size()[v][i] > 0) {
                     if (matrixgraph[v][i] + vdist < shortestdistance[i]) {
                         shortestdistance[i] = matrixgraph[v][i] + vdist;
                         predecessor[i] = v;
                     }
                 }
             }
+            */
+
             handled[v] = true;
         }
-        return predecessor;
-    }
-
 
         return (new Pair<Integer,Map<Vertex,Vertex>> (DistanceMap.get(zink), PredecessorMap));
     }
