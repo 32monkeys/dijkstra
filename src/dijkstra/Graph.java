@@ -60,19 +60,19 @@ public class Graph<T> {
         Vertex current, next;
         int currentDist, nextDistance = (int)Double.POSITIVE_INFINITY;
         for (int count = 0; count < predecessorMap.size(); count++) {
-            current = getmin(distanceMap.get(count), 1); // TODO: implement a findMin function
-            vdist=predecessorMap.get(v);
-            System.out.println("Smallest node " + v+ " distance " +shortestdistance[v]);
-            /*
-            for (int i = 0; i < PredecessorMap.size(); i++) {
-                if (PredecessorMap.size()[v][i] > 0) {
-                    if (matrixgraph[v][i] + vdist < shortestdistance[i]) {
+            current = getmin(distanceMap); // TODO: implement a findMin function
+            nextDistance=distanceMap.get(current);
+            System.out.println("Smallest node " + current+ " distance " +distanceMap.get(current));
+
+            for (int i = 0; i < predecessorMap.size(); i++) {
+                if (matrixgraph[v][i] > 0) {
+                    if (matrixgraph[v][i] + currentDist < distanceMap.get(i)) {
                         shortestdistance[i] = matrixgraph[v][i] + vdist;
                         predecessor[i] = v;
                     }
                 }
             }
-            */
+
 
             handled[v] = true;
         }
