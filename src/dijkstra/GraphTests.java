@@ -10,30 +10,34 @@ public class GraphTests {
     public static void main(String[] args) {
         // Create graph
         GraphTests TestGraph= new GraphTests();
-        Graph g = TestGraph.MakeSmallGraph();
-        Vertex source = g.getvertex("A");
-        Vertex zink = g.getvertex("F");
-        Pair<Integer, Map<Vertex, Vertex>> results=g.ShortestDistance(source, zink);
-        Vertex current =zink;
-        ArrayList<Vertex> Path= new ArrayList<>();
-        Path.add(zink);
-        while ((current != source) && (results.getValue().get(current)!=null))
-        {
+        Graph graph = TestGraph.MakeSmallGraph();
+        Vertex source = graph.getvertex("A");
+        Vertex zink = graph.getvertex("F");
+        Pair<Integer, Map<Vertex, Vertex>> results=graph.ShortestDistance(source, zink);
+        System.out.println(results);
+        Vertex current = zink;
+        ArrayList<Vertex> path= new ArrayList<>();
+        path.add(zink);
+        System.out.print("my path is: ");
+        path.forEach((node)->{
+            System.out.print("->");
+            System.out.print(node.Name);
+        });
+        System.out.println("   <---The end");
+
+        while ((current != source) && (results.getValue().get(current)!=null)) {
             current=results.getValue().get(current);
-            Path.add(0,current);
+            path.add(0,current);
         }
-        for(Vertex v : Path)
-        {
+        for(Vertex v : path) {
             System.out.print( v.Name);
             if (v!=zink)
                 System.out.print("->");
         }
 
-
-
     }
-    public Graph MakeSmallGraph()
-    {
+
+    public Graph MakeSmallGraph() {
         Graph mygraph= new Graph();
         final Vertex A=mygraph.addvertex("A");
         final Vertex B= mygraph.addvertex("B");

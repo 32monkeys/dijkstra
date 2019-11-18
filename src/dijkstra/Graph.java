@@ -30,13 +30,18 @@ public class Graph<T> {
         newedge.distance=dist;
         newedge.time=tim;
     }
-/////////////////////////////////////////////////////////////////////
+    int fuckingHighNumber = 200;
+
+    /////////////////////////////////////////////////////////////////////
     public Pair<Integer, Map<Vertex,Vertex> > ShortestDistance(Vertex source, Vertex zink) {
+
+        System.out.print(source.Name);
+        System.out.print(" to "); System.out.println(zink.Name);
         Map<Vertex,Vertex> predecessorMap= new HashMap<>();
         Map<Vertex,Integer> distanceMap=new HashMap<>();
         // initialize arrays
         for(Vertex vertex: Vertices) {
-            distanceMap.put(vertex,(int)Double.POSITIVE_INFINITY); // was 1000 before
+            distanceMap.put(vertex,fuckingHighNumber); // was 1000 before
             predecessorMap.put(vertex, null);
         }
 
@@ -45,54 +50,53 @@ public class Graph<T> {
 //////////////////////////////////////////////////////////////////////////////
         //int[] shortestdistance = new int[DistanceMap.size()];
         //int[] predecessor = new int[PredecessorMap.size()];
-        boolean[] handled = new boolean[predecessorMap.size()];
+        //boolean[] handled = new boolean[predecessorMap.size()];
 
         for (int i = 0; i < predecessorMap.size(); i++) {
             predecessorMap.put(predecessorMap.get(i),null);
-            handled[i] = false;
-            distanceMap.put(predecessorMap.get(i), (int)Double.POSITIVE_INFINITY); // was  200
+            //handled[i] = false;
+            distanceMap.put(predecessorMap.get(i), fuckingHighNumber); // was  200
         }
 
         // TODO: source is a vertex here, not an integer, change this
         // shortestdistance(source-1) = 0;
-        distanceMap.put(predecessorMap.get(source),0);
+        distanceMap.put(source,0);
 
         Vertex current, next;
-        int currentDist, nextDistance = (int)Double.POSITIVE_INFINITY;
+        int currentDist = fuckingHighNumber, nextDistance = fuckingHighNumber;
         for (int count = 0; count < predecessorMap.size(); count++) {
             current = getmin(distanceMap); // TODO: implement a findMin function
             nextDistance=distanceMap.get(current);
             System.out.println("Smallest node " + current+ " distance " +distanceMap.get(current));
 
             for (int i = 0; i < predecessorMap.size(); i++) {
-                if (matrixgraph[v][i] > 0) {
-                    if (matrixgraph[v][i] + currentDist < distanceMap.get(i)) {
-                        shortestdistance[i] = matrixgraph[v][i] + vdist;
-                        predecessor[i] = v;
+                if (distanceMap.get(predecessorMap.get(i)) > 0) {
+                    if (distanceMap.get(current)+distanceMap.get(predecessorMap.get(i)) < distanceMap.get(i)) {
+                        distanceMap.put(predecessorMap.get(i),distanceMap.get(predecessorMap.get(i)) + currentDist);
+                        predecessorMap.put(predecessorMap.get(i),current);
                     }
                 }
             }
 
 
-            handled[v] = true;
+            //handled[current] = true;
         }
 ///////////////////////////////////////////////////////////////////////////// returns
-        return (new Pair<Integer,Map<Vertex,Vertex>> (DistanceMap.get(zink), PredecessorMap));
+        return (new Pair<Integer,Map<Vertex,Vertex>> (distanceMap.get(zink), predecessorMap));
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public Vertex getmin(Map<Vertex,Integer> qmap){
-       // Your code
-        Vertex vertex=null;
-        int value=200;
-        for (int i = 0; i < dist.length ; i++) {
-            if (dist[i]<value && !done[i])
-            {
-                vertex=i;
-                value=dist[i];
-            }
-        }
-        return vertex;
+
+
+        boolean done = false;
+        System.out.println(qmap.size());
+        qmap.forEach((k,v)->{
+            //System.out.println(qmap);
+            //System.out.println(k.Name);
+        });
+
+        return null;
     }
 }
 
