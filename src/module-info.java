@@ -1,4 +1,4 @@
-module DijkstraPortfolio3 {
+module DijkstraPortfolio {
     requires javafx.base;
     opens dijkstra;
 }
