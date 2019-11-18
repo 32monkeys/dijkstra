@@ -32,35 +32,36 @@ public class Graph<T> {
     }
 /////////////////////////////////////////////////////////////////////
     public Pair<Integer, Map<Vertex,Vertex> > ShortestDistance(Vertex source, Vertex zink) {
-        Map<Vertex,Vertex> PredecessorMap= new HashMap<>();
-        Map<Vertex,Integer> DistanceMap=new HashMap<>();
+        Map<Vertex,Vertex> predecessorMap= new HashMap<>();
+        Map<Vertex,Integer> distanceMap=new HashMap<>();
         // initialize arrays
-        for(Vertex v: Vertices)
-        {
-            DistanceMap.put(v,1000);
-            PredecessorMap.put(v, null);
+        for(Vertex vertex: Vertices) {
+            distanceMap.put(vertex,(int)Double.POSITIVE_INFINITY); // was 1000 before
+            predecessorMap.put(vertex, null);
         }
 
         //TODO: implement Dijkstra (ours below
-//////////////////////////////////////////////////////////////////////////////
-        int[] shortestdistance = new int[PredecessorMap.size()];
-        int[] predecessor = new int[PredecessorMap.size()];
-        boolean[] handled = new boolean[PredecessorMap.size()];
         //Code goes here
-        for (int i = 0; i < PredecessorMap.size(); i++) {
-            predecessor[i]=-1;
+//////////////////////////////////////////////////////////////////////////////
+        //int[] shortestdistance = new int[DistanceMap.size()];
+        //int[] predecessor = new int[PredecessorMap.size()];
+        boolean[] handled = new boolean[predecessorMap.size()];
+
+        for (int i = 0; i < predecessorMap.size(); i++) {
+            predecessorMap.put(predecessorMap.get(i),null);
             handled[i] = false;
-            shortestdistance[i] = (int)Double.POSITIVE_INFINITY;
+            distanceMap.put(predecessorMap.get(i), (int)Double.POSITIVE_INFINITY); // was  200
         }
 
         // TODO: source is a vertex here, not an integer, change this
-        //shortestdistance[source - 1] = 0;
+        // shortestdistance(source-1) = 0;
+        distanceMap.put(predecessorMap.get(source),0);
 
-        int v, u;
-        int udist, vdist = 200;
-        for (int count = 0; count < PredecessorMap.size(); count++) {
-            //v = findMin(shortestdistance, handled); // TODO: implement a findMin function
-            vdist=shortestdistance[v];
+        Vertex start, slut;
+        int startdist, slutdist = (int)Double.POSITIVE_INFINITY;
+        for (int count = 0; count < predecessorMap.size(); count++) {
+            v = findMin(shortestdistance, handled); // TODO: implement a findMin function
+            vdist=predecessorMap.get(v);
             System.out.println("Smallest node " + v+ " distance " +shortestdistance[v]);
             /*
             for (int i = 0; i < PredecessorMap.size(); i++) {
