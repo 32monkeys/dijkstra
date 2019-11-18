@@ -57,10 +57,10 @@ public class Graph<T> {
         // shortestdistance(source-1) = 0;
         distanceMap.put(predecessorMap.get(source),0);
 
-        Vertex start, slut;
-        int startdist, slutdist = (int)Double.POSITIVE_INFINITY;
+        Vertex current, next;
+        int currentDist, nextDistance = (int)Double.POSITIVE_INFINITY;
         for (int count = 0; count < predecessorMap.size(); count++) {
-            v = findMin(shortestdistance, handled); // TODO: implement a findMin function
+            current = getmin(distanceMap.get(count), 1); // TODO: implement a findMin function
             vdist=predecessorMap.get(v);
             System.out.println("Smallest node " + v+ " distance " +shortestdistance[v]);
             /*
@@ -83,7 +83,16 @@ public class Graph<T> {
 
     public Vertex getmin(Map<Vertex,Integer> qmap){
        // Your code
-        return null;
+        Vertex vertex=null;
+        int value=200;
+        for (int i = 0; i < dist.length ; i++) {
+            if (dist[i]<value && !done[i])
+            {
+                vertex=i;
+                value=dist[i];
+            }
+        }
+        return vertex;
     }
 }
 
