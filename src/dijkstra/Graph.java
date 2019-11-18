@@ -30,7 +30,7 @@ public class Graph<T> {
         newedge.distance=dist;
         newedge.time=tim;
     }
-
+/////////////////////////////////////////////////////////////////////
     public Pair<Integer, Map<Vertex,Vertex> > ShortestDistance(Vertex source, Vertex zink) {
         Map<Vertex,Vertex> PredecessorMap= new HashMap<>();
         Map<Vertex,Integer> DistanceMap=new HashMap<>();
@@ -41,8 +41,8 @@ public class Graph<T> {
             PredecessorMap.put(v, null);
         }
 
-        //TODO: implement Dijkstra
-
+        //TODO: implement Dijkstra (ours below
+//////////////////////////////////////////////////////////////////////////////
         int[] shortestdistance = new int[PredecessorMap.size()];
         int[] predecessor = new int[PredecessorMap.size()];
         boolean[] handled = new boolean[PredecessorMap.size()];
@@ -75,9 +75,11 @@ public class Graph<T> {
 
             handled[v] = true;
         }
-
+///////////////////////////////////////////////////////////////////////////// returns
         return (new Pair<Integer,Map<Vertex,Vertex>> (DistanceMap.get(zink), PredecessorMap));
     }
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
     public Vertex getmin(Map<Vertex,Integer> qmap){
        // Your code
         return null;
