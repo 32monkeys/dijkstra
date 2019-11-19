@@ -4,20 +4,20 @@ import java.util.*;
 import javafx.util.Pair;
 
 public class Graph<T> {
-    private ArrayList<Vertex> Vertices = new ArrayList<>();
+    private ArrayList<Vertex> vertices = new ArrayList<>();
 
     public Vertex addvertex(String id) {
         Vertex newvertex = new Vertex(id);
-        Vertices.add(newvertex);
+        vertices.add(newvertex);
         return newvertex;
     }
 
     public void addvertex(Vertex v) {
-        Vertices.add(v);
+        vertices.add(v);
     }
     public Vertex getvertex(String s)
     {
-        for(Vertex v : Vertices )
+        for(Vertex v : vertices )
         {
             if (v.Name==s)
                 return v;
@@ -40,10 +40,15 @@ public class Graph<T> {
         Map<Vertex,Vertex> predecessorMap= new HashMap<>();
         Map<Vertex,Integer> distanceMap=new HashMap<>();
         // initialize arrays
-        for(Vertex vertex: Vertices) {
-            distanceMap.put(vertex,fuckingHighNumber); // was 1000 before
+        for(Vertex vertex: vertices) {
+            if(source.equals(vertex)){
+                distanceMap.put(source,0);
+            } else {
+                distanceMap.put(vertex,fuckingHighNumber); // was 1000 before
+            }
             predecessorMap.put(vertex, null);
         }
+
 
         //TODO: implement Dijkstra (ours below
         //Code goes here
@@ -65,7 +70,9 @@ public class Graph<T> {
         Vertex current, next;
         int currentDist = fuckingHighNumber, nextDistance = fuckingHighNumber;
         for (int count = 0; count < predecessorMap.size(); count++) {
+            System.out.println("test");
             current = getmin(distanceMap); // TODO: implement a findMin function
+            System.out.println("test2");
             nextDistance=distanceMap.get(current);
             System.out.println("Smallest node " + current+ " distance " +distanceMap.get(current));
 
@@ -88,15 +95,18 @@ public class Graph<T> {
 
     public Vertex getmin(Map<Vertex,Integer> qmap){
 
+        Vertex current = vertices.get(0);
+        int value=(int)Float.POSITIVE_INFINITY;
 
-        boolean done = false;
-        System.out.println(qmap.size());
-        qmap.forEach((k,v)->{
-            //System.out.println(qmap);
-            //System.out.println(k.Name);
-        });
-
-        return null;
+        for (int i = 0; i < qmap.size() ; i++) {
+            System.out.println(qmap.get(i));
+            if (qmap.get(i)<value) // <--- null pointer
+            {
+                current=vertices.get(i);
+                value=qmap.get(i);
+            }
+        }
+        return current;
     }
 }
 
