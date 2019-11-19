@@ -88,7 +88,7 @@ public class Graph {
             //predecessorMap.put(source,vertex);
         //}
         /////////////////////////////////////////////////////////////////////////////////
-        System.exit(0);
+        System.exit(0); // remove this when done
         return null;
         //return (new Pair<Integer,Map<Vertex,Vertex>> (DistanceMap.get(zink), PredecessorMap));
     }
