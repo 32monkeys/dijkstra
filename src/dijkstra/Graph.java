@@ -3,7 +3,7 @@ package dijkstra;
 import java.util.*;
 import javafx.util.Pair;
 
-public class Graph<T> {
+public class Graph {
     private ArrayList<Vertex> vertices = new ArrayList<>();
 
     public Vertex addvertex(String id) {
@@ -30,83 +30,71 @@ public class Graph<T> {
         newedge.distance=dist;
         newedge.time=tim;
     }
-    int fuckingHighNumber = 200;
 
-    /////////////////////////////////////////////////////////////////////
-    public Pair<Integer, Map<Vertex,Vertex> > ShortestDistance(Vertex source, Vertex zink) {
+    /////////////////////////////////////
+    // TODO: implement a global variable for the infinity
+    int FUCKING_HIGH_NUMBER = (int)Double.POSITIVE_INFINITY;
+    int infinity = FUCKING_HIGH_NUMBER;
 
-        System.out.print(source.Name);
-        System.out.print(" to "); System.out.println(zink.Name);
+    /////////////////////////////////////
+
+    public Pair<Integer, Map<Vertex,Vertex> > ShortestDistance(Vertex source, Vertex zink)
+    {
         Map<Vertex,Vertex> predecessorMap= new HashMap<>();
         Map<Vertex,Integer> distanceMap=new HashMap<>();
         // initialize arrays
         for(Vertex vertex: vertices) {
-            if(source.equals(vertex)){
-                distanceMap.put(source,0);
-            } else {
-                distanceMap.put(vertex,fuckingHighNumber); // was 1000 before
-            }
-            predecessorMap.put(vertex, null);
+            distanceMap.put(vertex,infinity); // This is the nodes and their weight
+            predecessorMap.put(vertex, null); // This is the nodes and their reference to last vertex
         }
 
+        // TODO: We implements the dijkstra
+        /////////////////////////////implement Dijkstra /////////////////////////////
+        Vertex current = vertices.get(0);
+        Vertex next = current;
+        while(next!=null&&current!=zink) {
+            System.out.println("For: " + current.Name + " {");
 
-        //TODO: implement Dijkstra (ours below
-        //Code goes here
-//////////////////////////////////////////////////////////////////////////////
-        //int[] shortestdistance = new int[DistanceMap.size()];
-        //int[] predecessor = new int[PredecessorMap.size()];
-        //boolean[] handled = new boolean[predecessorMap.size()];
+            int currentMin = infinity;
+            Vertex tempVertex = current;
 
-        for (int i = 0; i < predecessorMap.size(); i++) {
-            predecessorMap.put(predecessorMap.get(i),null);
-            //handled[i] = false;
-            distanceMap.put(predecessorMap.get(i), fuckingHighNumber); // was  200
-        }
+            for (Edge startOfEdge : current.getOutEdges()) {
+                if (!current.equals(startOfEdge.getTovertex())) {
+                    System.out.print("\t From: " + current.Name + " ");
+                    System.out.print("\t To: " + startOfEdge.getTovertex().Name + ". ");
+                    System.out.print("\t Distance: " + startOfEdge.distance);
+                    System.out.println(); // Print where we start
 
-        // TODO: source is a vertex here, not an integer, change this
-        // shortestdistance(source-1) = 0;
-        distanceMap.put(source,0);
-
-        Vertex current, next;
-        int currentDist = fuckingHighNumber, nextDistance = fuckingHighNumber;
-        for (int count = 0; count < predecessorMap.size(); count++) {
-            System.out.println("test");
-            current = getmin(distanceMap); // TODO: implement a findMin function
-            System.out.println("test2");
-            nextDistance=distanceMap.get(current);
-            System.out.println("Smallest node " + current+ " distance " +distanceMap.get(current));
-
-            for (int i = 0; i < predecessorMap.size(); i++) {
-                if (distanceMap.get(predecessorMap.get(i)) > 0) {
-                    if (distanceMap.get(current)+distanceMap.get(predecessorMap.get(i)) < distanceMap.get(i)) {
-                        distanceMap.put(predecessorMap.get(i),distanceMap.get(predecessorMap.get(i)) + currentDist);
-                        predecessorMap.put(predecessorMap.get(i),current);
+                    if (startOfEdge.distance <= currentMin) {
+                        currentMin = startOfEdge.distance;
+                        next = startOfEdge.getTovertex();
                     }
+
                 }
             }
 
+            System.out.println("\t Minimum is: " + currentMin + " So we select: " + next.Name);
+            System.out.println("}");
+            System.out.println();
 
-            //handled[current] = true;
+            // Now we have evaluated the shortest of the available paths
+            // We will now set the current to the next
+            current = next;
+
         }
-///////////////////////////////////////////////////////////////////////////// returns
-        return (new Pair<Integer,Map<Vertex,Vertex>> (distanceMap.get(zink), predecessorMap));
+        //for(Vertex vertex : vertices){
+            //System.out.println(vertex.getOutEdges());
+            //if(vertex.getOutEdges())
+            //predecessorMap.put(source,vertex);
+        //}
+        /////////////////////////////////////////////////////////////////////////////////
+        System.exit(0);
+        return null;
+        //return (new Pair<Integer,Map<Vertex,Vertex>> (DistanceMap.get(zink), PredecessorMap));
     }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-
     public Vertex getmin(Map<Vertex,Integer> qmap){
-
-        Vertex current = vertices.get(0);
-        int value=(int)Float.POSITIVE_INFINITY;
-
-        for (int i = 0; i < qmap.size() ; i++) {
-            System.out.println(qmap.get(i));
-            if (qmap.get(i)<value) // <--- null pointer
-            {
-                current=vertices.get(i);
-                value=qmap.get(i);
-            }
-        }
-        return current;
+        // Your code
+        return null;
     }
 }
 
