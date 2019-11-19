@@ -1,132 +1,118 @@
 package dijkstra;
 
+import java.security.Key;
 import java.util.*;
 import javafx.util.Pair;
 
-public class Graph {
+public class Graph<T> {
     private ArrayList<Vertex> vertices = new ArrayList<>();
 
-    public Vertex addvertex(String id) {
-        Vertex newvertex = new Vertex(id);
-        vertices.add(newvertex);
-        return newvertex;
+    public Vertex addVertex(String id) {
+        Vertex newVertex = new Vertex(id);
+        vertices.add(newVertex);
+        return newVertex;
     }
 
-    public void addvertex(Vertex v) {
+    public void addVertex(Vertex v) {
         vertices.add(v);
     }
-    public Vertex getvertex(String s)
+    public Vertex getVertex(String s)
     {
-        for(Vertex v : vertices )
+        for(Vertex v : vertices)
         {
-            if (v.Name==s)
+            if (v.name ==s)
                 return v;
         }
         return null;
     }
 
-    public void newedge(Vertex from, Vertex to, int dist, int tim) {
-        Edge newedge=new Edge(from,to);
-        newedge.distance=dist;
-        newedge.time=tim;
+    public void newEdge(Vertex from, Vertex to, int dist, int time) {
+        Edge newEdge = new Edge(from,to);
+        newEdge.distance=dist;
+        newEdge.time=time;
     }
-
-    /////////////////////////////////////
-    // TODO: implement a global variable for the infinity
-    int FUCKING_HIGH_NUMBER = (int)Double.POSITIVE_INFINITY;
-    int infinity = FUCKING_HIGH_NUMBER;
-
-    /////////////////////////////////////
 
     public Pair<Integer, Map<Vertex,Vertex> > ShortestDistance(Vertex source, Vertex zink)
     {
         Map<Vertex,Vertex> predecessorMap= new HashMap<>();
         Map<Vertex,Integer> distanceMap=new HashMap<>();
         // initialize arrays
-        for(Vertex vertex: vertices) {
-            distanceMap.put(vertex,infinity); // This is the nodes and their weight
-            predecessorMap.put(vertex, null); // This is the nodes and their reference to last vertex
+        for(Vertex v: vertices)
+        {
+            distanceMap.put(v,1000);
+            predecessorMap.put(v, null);
         }
 
-        // TODO: We implements the dijkstra
-        /////////////////////////////implement Dijkstra /////////////////////////////
-        Vertex current = vertices.get(0);
-        Vertex next = current;
-        while(next!=null&&current!=zink) {
-            System.out.println("For: " + current.Name + " {");
+        System.out.println(vertices.get(1).getOutEdges());
+        distanceMap.put(source,0);
+        Map<Vertex,Integer> qMap = new HashMap<>();
+        Vertex current = source;
 
-            int currentMin = infinity;
-            Vertex tempVertex = current;
-
-            for (Edge startOfEdge : current.getOutEdges()) {
-                if (!current.equals(startOfEdge.getTovertex())) {
-                    System.out.print("\t From: " + current.Name + " ");
-                    System.out.print("\t To: " + startOfEdge.getTovertex().Name + ". ");
-                    System.out.print("\t Distance: " + startOfEdge.distance);
-                    System.out.println(); // Print where we start
-
-                    if (startOfEdge.distance <= currentMin) {
-                        currentMin = startOfEdge.distance;
-                        next = startOfEdge.getTovertex();
-                    }
-
-                }
-            }
-
-            System.out.println("\t Minimum is: " + currentMin + " So we select: " + next.Name);
-            System.out.println("}");
-            System.out.println();
-
-            // Now we have evaluated the shortest of the available paths
-            // We will now set the current to the next
-            current = next;
-
+        for (Edge edge : current.getOutEdges()){
+            qMap.put(edge.getToVertex(),edge.distance);
+            System.out.println("From: "+current.name+" to: "+ edge.getToVertex().name +" distance = "+ edge.distance);
         }
-        //for(Vertex vertex : vertices){
-            //System.out.println(vertex.getOutEdges());
-            //if(vertex.getOutEdges())
-            //predecessorMap.put(source,vertex);
-        //}
-        /////////////////////////////////////////////////////////////////////////////////
-        System.exit(0); // remove this when done
-        return null;
-        //return (new Pair<Integer,Map<Vertex,Vertex>> (DistanceMap.get(zink), PredecessorMap));
+        //System.out.println(getMin(qMap).name);
+        current = getMin(qMap);
+
+
+
+
+
+
+        //implement Dijkstra
+
+
+
+        return (new Pair<Integer,Map<Vertex,Vertex>> (distanceMap.get(zink), predecessorMap));
     }
-    public Vertex getmin(Map<Vertex,Integer> qmap){
+    public Vertex getMin(Map<Vertex,Integer> qMap){
         // Your code
-        return null;
+        Vertex minEntry = null;
+        int shortestDist = 200;
+        for (Integer dist : qMap.values()){
+            if(dist < shortestDist){
+                shortestDist = dist;
+            }
+        }
+        for (Vertex vertex : qMap.keySet()){
+            if (qMap.get(vertex).intValue()==shortestDist){
+                minEntry = vertex;
+            }
+        }
+        return minEntry;
     }
 }
 
 
 
 class Vertex{
-    public String Name;
-    public ArrayList<Edge> OutEdges = new ArrayList<>();
+    public String name;
+    public ArrayList<Edge> outEdges = new ArrayList<>();
     public  Vertex(String id){
-        Name=id;
+        name =id;
     }
-    public void addOutEdge(Edge outedge){
-        OutEdges.add(outedge);
+    public void addOutEdge(Edge outEdge){
+        outEdges.add(outEdge);
     }
-    public ArrayList<Edge> getOutEdges(){return OutEdges;}
+    public ArrayList<Edge> getOutEdges(){return outEdges;}
 }
 
 class Edge{
-    private Vertex fromvertex;
-    private Vertex tovertex;
+    private Vertex fromVertex;
+    private Vertex toVertex;
     public int distance=0;
     public int time=0;
 
-    public Vertex getTovertex() {
-        return tovertex;
+    public Vertex getToVertex() {
+        return toVertex;
     }
 
     public Edge(Vertex from, Vertex to){
-        fromvertex=from;
-        tovertex=to;
-        fromvertex.addOutEdge(this);
+        fromVertex =from;
+        toVertex=to;
+        fromVertex.addOutEdge(this);
         //If not directional
-        tovertex.addOutEdge(this);
+        toVertex.addOutEdge(this);
     }
 }
