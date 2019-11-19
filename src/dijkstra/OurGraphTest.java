@@ -5,11 +5,11 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class GraphTests {
+public class OurGraphTest {
 
     public static void main(String[] args) {
         // Create graph
-        GraphTests TestGraph= new GraphTests();
+        OurGraphTest TestGraph= new OurGraphTest();
         Graph g = TestGraph.MakeSmallGraph();
         Vertex source = g.getvertex("A");
         Vertex zink = g.getvertex("F");
@@ -50,9 +50,10 @@ public class GraphTests {
         mygraph.newedge(B,E, 2,4);
         mygraph.newedge(C,F, 1,8);
         mygraph.newedge(C,E, 2,2);
-        mygraph.newedge(D,F, 2,7);
+        mygraph.newedge(D,A, 2,7);
+        mygraph.newedge(E,A, 4,7);
         mygraph.newedge(E,F, 3,6);
-
+        System.out.println("i ran");
 
         return mygraph;
 
