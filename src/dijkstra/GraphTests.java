@@ -11,7 +11,7 @@ public class GraphTests {
         // Create graph
         GraphTests TestGraph= new GraphTests();
         Graph g = TestGraph.MakeSmallGraph();
-        Vertex source = g.getVertex("J");
+        Vertex source = g.getVertex("A");
         Vertex zink = g.getVertex("F");
         Pair<Integer, Map<Vertex, Vertex>> results=g.ShortestDistance(source, zink);
         Vertex current =zink;
