@@ -28,10 +28,9 @@ public class GraphTests {
             if (v!=zink)
                 System.out.print("->");
         }
-
-
-
     }
+
+
     public Graph MakeSmallGraph()
     {
         Graph mygraph= new Graph();
@@ -86,9 +85,6 @@ public class GraphTests {
         mygraph.newEdge(J,B,5,0);
         mygraph.newEdge(J,C,15,0);
 */
-
-
         return mygraph;
-
     }
 }

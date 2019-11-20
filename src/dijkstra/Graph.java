@@ -32,6 +32,7 @@ public class Graph<T> {
         newEdge.time = time;
     }
 
+    //implement Dijkstra
     public Pair<Integer, Map<Vertex, Vertex>> ShortestDistance(Vertex source, Vertex zink) {
         /*
         init lists distmap predecessor and handled?
@@ -53,7 +54,6 @@ public class Graph<T> {
 
         for (Vertex vertex : vertices) {
             current = getMin(distanceMap, handled);
-            //System.out.println("eval: " + current.name);
             for (Edge edge : current.getOutEdges()) {
                 if (distanceMap.get(current) + edge.distance < distanceMap.get(edge.getToVertex()) && handled.get(current)<1) {
                     if (edge.getToVertex() != current) {
@@ -67,25 +67,11 @@ public class Graph<T> {
             }
             handled.put(current, 1);
         }
-
-        //for (Edge edge : current.getOutEdges()){
-        //    qMap.put(edge.getToVertex(),edge.distance);
-        //    System.out.println("From: "+current.name+" to: "+ edge.getToVertex().name +" distance = "+ edge.distance);
-        //}
-        //System.out.println(getMin(qMap).name);
-
-
-        //implement Dijkstra
-
-
         return (new Pair<Integer, Map<Vertex, Vertex>>(distanceMap.get(zink), predecessorMap));
     }
 
+
     public Vertex getMin(Map<Vertex, Integer> qMap, Map<Vertex, Integer> done) {
-        // Your code
-        /*
-        for each vertex dist
-         */
         int tempMin = 10000;
         Vertex result = null;
         for (Vertex vertex : qMap.keySet()) {
@@ -93,7 +79,6 @@ public class Graph<T> {
                 tempMin = qMap.get(vertex).intValue();
                 result = vertex;
                 done.put(vertex,0);
-                //System.out.println("temp result: "+result.name + qMap.get(vertex).intValue()+" "+tempMin);
             }
         }
         return result;
