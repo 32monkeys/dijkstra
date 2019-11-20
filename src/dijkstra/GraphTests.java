@@ -11,8 +11,8 @@ public class GraphTests {
         // Create graph
         GraphTests TestGraph= new GraphTests();
         Graph g = TestGraph.MakeSmallGraph();
-        Vertex source = g.getvertex("A");
-        Vertex zink = g.getvertex("F");
+        Vertex source = g.getVertex("J");
+        Vertex zink = g.getVertex("F");
         Pair<Integer, Map<Vertex, Vertex>> results=g.ShortestDistance(source, zink);
         Vertex current =zink;
         ArrayList<Vertex> Path= new ArrayList<>();
@@ -24,7 +24,7 @@ public class GraphTests {
         }
         for(Vertex v : Path)
         {
-            System.out.print( v.Name);
+            System.out.print( v.name);
             if (v!=zink)
                 System.out.print("->");
         }
@@ -35,23 +35,57 @@ public class GraphTests {
     public Graph MakeSmallGraph()
     {
         Graph mygraph= new Graph();
-        final Vertex A=mygraph.addvertex("A");
-        final Vertex B= mygraph.addvertex("B");
-        final Vertex C =mygraph.addvertex("C");
-        final Vertex D = mygraph.addvertex("D");
-        final Vertex E = mygraph.addvertex("E");
-        final Vertex F = mygraph.addvertex("F");
+        final Vertex A=mygraph.addVertex("A");
+        final Vertex B= mygraph.addVertex("B");
+        final Vertex C =mygraph.addVertex("C");
+        final Vertex D = mygraph.addVertex("D");
+        final Vertex E = mygraph.addVertex("E");
+        final Vertex F = mygraph.addVertex("F");
 
-        mygraph.newedge(A,B,1,2);
-        mygraph.newedge(A,C, 5,1);
-        mygraph.newedge(A,D, 4,6);
-        mygraph.newedge(B,C, 3,2);
-        mygraph.newedge(B,D, 2,3);
-        mygraph.newedge(B,E, 2,4);
-        mygraph.newedge(C,F, 1,8);
-        mygraph.newedge(C,E, 2,2);
-        mygraph.newedge(D,F, 2,7);
-        mygraph.newedge(E,F, 3,6);
+        mygraph.newEdge(A,B,1,2);
+        mygraph.newEdge(A,C, 5,1);
+        mygraph.newEdge(A,D, 4,6);
+        mygraph.newEdge(B,C, 3,2);
+        mygraph.newEdge(B,D, 2,3);
+        mygraph.newEdge(B,E, 2,4);
+        mygraph.newEdge(C,F, 1,8);
+        mygraph.newEdge(C,E, 2,2);
+        mygraph.newEdge(D,F, 2,7);
+        mygraph.newEdge(E,F, 3,6);
+
+        /*
+        final Vertex A = mygraph.addVertex("A");
+        final Vertex B = mygraph.addVertex("B");
+        final Vertex C = mygraph.addVertex("C");
+        final Vertex D = mygraph.addVertex("D");
+        final Vertex E = mygraph.addVertex("E");
+        final Vertex F = mygraph.addVertex("F");
+        final Vertex G = mygraph.addVertex("G");
+        final Vertex H = mygraph.addVertex("H");
+        final Vertex I = mygraph.addVertex("I");
+        final Vertex J = mygraph.addVertex("J");
+
+        mygraph.newEdge(A,B,10,0);
+        mygraph.newEdge(A,D,20,0);
+        mygraph.newEdge(A,E,20,0);
+        mygraph.newEdge(A,F,5,0);
+        mygraph.newEdge(A,G,15,0);
+        mygraph.newEdge(B,C,5,0);
+        mygraph.newEdge(B,D,10,0);
+        mygraph.newEdge(C,B,15,0);
+        mygraph.newEdge(C,D,5,0);
+        mygraph.newEdge(D,E,10,0);
+        mygraph.newEdge(E,F,5,0);
+        mygraph.newEdge(G,F,10,0);
+        mygraph.newEdge(H,A,5,0);
+        mygraph.newEdge(H,B,20,0);
+        mygraph.newEdge(H,G,5,0);
+        mygraph.newEdge(I,B,15,0);
+        mygraph.newEdge(I,H,20,0);
+        mygraph.newEdge(I,J,10,0);
+        mygraph.newEdge(J,B,5,0);
+        mygraph.newEdge(J,C,15,0);
+*/
 
 
         return mygraph;
