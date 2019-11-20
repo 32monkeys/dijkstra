@@ -86,7 +86,7 @@ public class GraphTests {
         mygraph.newEdge(A,E,20,0);
         mygraph.newEdge(A,F,5,0);
         mygraph.newEdge(A,G,15,0);
-        mygraph.newEdge(B,C,7,0);
+        mygraph.newEdge(B,C,10,0);
         mygraph.newEdge(B,D,10,0);
         mygraph.newEdge(C,B,15,0);
         mygraph.newEdge(C,D,5,0);
