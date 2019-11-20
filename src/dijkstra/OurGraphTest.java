@@ -24,7 +24,7 @@ public class OurGraphTest {
         }
         for(Vertex v : Path)
         {
-            System.out.print( v.Name);
+            System.out.print( v.name);
             if (v!=zink)
                 System.out.print("->");
         }
@@ -50,7 +50,7 @@ public class OurGraphTest {
         ourGraph.newedge(A,E,20,0);
         ourGraph.newedge(A,F,5,0);
         ourGraph.newedge(A,G,15,0);
-        ourGraph.newedge(B,C,5,0);
+        ourGraph.newedge(B,C,7,0);
         ourGraph.newedge(B,D,10,0);
         ourGraph.newedge(C,B,15,0);
         ourGraph.newedge(C,D,5,0);

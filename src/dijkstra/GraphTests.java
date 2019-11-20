@@ -11,21 +11,22 @@ public class GraphTests {
         // Create graph
         GraphTests TestGraph= new GraphTests();
         Graph g = TestGraph.MakeSmallGraph();
-        Vertex source = g.getvertex("A");
-        Vertex zink = g.getvertex("F");
-        Pair<Integer, Map<Vertex, Vertex>> results=g.ShortestDistance(source, zink);
-        Vertex current =zink;
+        Vertex startNode = g.getvertex("A");
+        Vertex endNode = g.getvertex("E");
+        Pair<Integer, Map<Vertex, Vertex>> results=g.ShortestDistance(startNode, endNode);
+        Vertex current =endNode;
         ArrayList<Vertex> Path= new ArrayList<>();
-        Path.add(zink);
-        while ((current != source) && (results.getValue().get(current)!=null))
+        Path.add(endNode);
+        while ((current != startNode) && (results.getValue().get(current)!=null))
         {
+            //System.out.println(current.name);
             current=results.getValue().get(current);
             Path.add(0,current);
         }
         for(Vertex v : Path)
         {
-            System.out.print( v.Name);
-            if (v!=zink)
+            System.out.print( v.name);
+            if (v!=endNode)
                 System.out.print("->");
         }
 
@@ -40,18 +41,22 @@ public class GraphTests {
         final Vertex C =mygraph.addvertex("C");
         final Vertex D = mygraph.addvertex("D");
         final Vertex E = mygraph.addvertex("E");
-        final Vertex F = mygraph.addvertex("F");
+        //final Vertex F = mygraph.addvertex("F");
 
-        mygraph.newedge(A,B,1,2);
-        mygraph.newedge(A,C, 5,1);
-        mygraph.newedge(A,D, 4,6);
-        mygraph.newedge(B,C, 3,2);
-        mygraph.newedge(B,D, 2,3);
-        mygraph.newedge(B,E, 2,4);
-        mygraph.newedge(C,F, 1,8);
-        mygraph.newedge(C,E, 2,2);
-        mygraph.newedge(D,F, 2,7);
-        mygraph.newedge(E,F, 3,6);
+
+
+        mygraph.newedge(A,B, 5,  3);
+        mygraph.newedge(A,C, 10,  3);
+        mygraph.newedge(B,C, 3,  3);
+        mygraph.newedge(B,D, 2,  3);
+        mygraph.newedge(B,E, 9,  3);
+        mygraph.newedge(C,B, 2,  3);
+        mygraph.newedge(C,E, 1,  3);
+        mygraph.newedge(D,E, 6,  3);
+        mygraph.newedge(E,D, 4,  3);
+
+
+
 
 
         return mygraph;

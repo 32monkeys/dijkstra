@@ -19,7 +19,7 @@ public class Graph {
     {
         for(Vertex v : vertices )
         {
-            if (v.Name==s)
+            if (v.name ==s)
                 return v;
         }
         return null;
@@ -33,64 +33,110 @@ public class Graph {
 
     /////////////////////////////////////
     // TODO: implement a global variable for the infinity
-    int FUCKING_HIGH_NUMBER = (int)Double.POSITIVE_INFINITY;
-    int infinity = FUCKING_HIGH_NUMBER;
+    int infinity = (int)Double.POSITIVE_INFINITY;
 
     /////////////////////////////////////
 
-    public Pair<Integer, Map<Vertex,Vertex> > ShortestDistance(Vertex source, Vertex zink)
+    public Pair<Integer, Map<Vertex,Vertex> > ShortestDistance(Vertex startNode, Vertex endNode)
     {
-        Map<Vertex,Vertex> predecessorMap= new HashMap<>();
-        Map<Vertex,Integer> distanceMap=new HashMap<>();
+        Map<Vertex,Vertex> predecessorMap= new HashMap<>(); // The key is a vertex, the value is the previous vertex
+        Map<Vertex,Integer> distanceMap=new HashMap<>(); // The key is a vertex, the value is the shortest distance to it
         // initialize arrays
         for(Vertex vertex: vertices) {
             distanceMap.put(vertex,infinity); // This is the nodes and their weight
-            predecessorMap.put(vertex, null); // This is the nodes and their reference to last vertex
+            predecessorMap.put(vertex, null); // we set the vertex to be null, which is meant to be "not visited"
         }
 
         // TODO: We implements the dijkstra
         /////////////////////////////implement Dijkstra /////////////////////////////
-        Vertex current = vertices.get(0);
-        Vertex next = current;
-        while(next!=null&&current!=zink) {
-            System.out.println("For: " + current.Name + " {");
+        // Initialize values
 
-            int currentMin = infinity;
-            Vertex tempVertex = current;
 
-            for (Edge startOfEdge : current.getOutEdges()) {
-                if (!current.equals(startOfEdge.getTovertex())) {
-                    System.out.print("\t From: " + current.Name + " ");
-                    System.out.print("\t To: " + startOfEdge.getTovertex().Name + ". ");
-                    System.out.print("\t Distance: " + startOfEdge.distance);
-                    System.out.println(); // Print where we start
+        //Vertex previous = new Vertex("Start"); // Set start to previous
 
-                    if (startOfEdge.distance <= currentMin) {
-                        currentMin = startOfEdge.distance;
-                        next = startOfEdge.getTovertex();
+        Vertex previous = startNode; // Set previous to be start node
+        Vertex current = startNode;
+        Vertex next = null;
+
+        distanceMap.put(previous,0);
+        distanceMap.put(current,0); // Set value of previous node
+        predecessorMap.put(startNode,startNode);
+
+        int someDistance = 0;
+//!previous.equals(endNode)
+        while(predecessorMap.containsValue(null)&&(!current.equals(endNode))){ //TODO: what would happen if we start at a point, where we cant evaluate everything?
+            //for(int i=0; i<6;i++) {
+                System.out.println(previous.name+" is having the weight of: "+distanceMap.get(previous));
+                System.out.println("For: " + previous.name + " {");
+                int min = infinity;
+                int weight = infinity;
+                for (Edge edge : predecessorMap.get(previous).getOutEdges()) {
+
+
+                    if(!previous.equals(edge.getToVertex())){
+                        current = edge.getToVertex();
+
+                        if (predecessorMap.get(current)==null) {
+
+                            //System.out.println(current.name + "<----");
+
+                            System.out.print("\t From: " + previous.name + " ");
+                            System.out.print("\t To: " + current.name + " ");
+                            System.out.print("\t Distance: " + edge.distance);
+                            System.out.println();
+                            weight = edge.distance;
+                            if (min >= edge.distance) {
+
+                                min = edge.distance;
+                                next = edge.getToVertex();
+                            }
+
+                            //System.out.println("\t this should be low is: "+distanceMap.get(next));
+                            //System.out.println("\t weight+previous is: "+(distanceMap.get(previous)+weight));
+                            //System.out.println("\t current is: "+distanceMap.get(current));
+                            //System.out.println("\t next is: "+distanceMap.get(next));
+
+                            if((distanceMap.get(previous)+weight)<=distanceMap.get(current)){
+                                System.out.println("\t "+current.name+" is now: "+(distanceMap.get(previous) + weight));
+                                distanceMap.put(current, distanceMap.get(previous) + weight);
+                            } else {
+                                System.out.println("\t removed "+previous.name);
+                                predecessorMap.remove(previous);
+                                current = previous;
+                            }
+
+
+                        } else {
+                            System.out.println("not evaluating: "+current.name);
+                            //current = previous;
+                        }
                     }
 
+
                 }
-            }
 
-            System.out.println("\t Minimum is: " + currentMin + " So we select: " + next.Name);
-            System.out.println("}");
-            System.out.println();
+                System.out.println("\t Minimum is: " + min + " So we select: " + next.name);
+                System.out.println("}");
+                System.out.println();
 
-            // Now we have evaluated the shortest of the available paths
-            // We will now set the current to the next
-            current = next;
 
+            // TODO: make foreach here
+            //for(edge.)
+
+                current = next;
+                previous = current;
+                predecessorMap.put(previous,current);
+            System.out.println("i put key: "+previous.name+" the value: "+current.name);
+                //predecessorMap.put(previous,current);
+
+            //}
         }
-        //for(Vertex vertex : vertices){
-            //System.out.println(vertex.getOutEdges());
-            //if(vertex.getOutEdges())
-            //predecessorMap.put(source,vertex);
-        //}
+
+
         /////////////////////////////////////////////////////////////////////////////////
         System.exit(0); // remove this when done
         return null;
-        //return (new Pair<Integer,Map<Vertex,Vertex>> (DistanceMap.get(zink), PredecessorMap));
+        //return (new Pair<Integer,Map<Vertex,Vertex>> (distanceMap.get(startNode), predecessorMap));
     }
     public Vertex getmin(Map<Vertex,Integer> qmap){
         // Your code
@@ -101,10 +147,10 @@ public class Graph {
 
 
 class Vertex{
-    public String Name;
+    public String name;
     public ArrayList<Edge> OutEdges = new ArrayList<>();
     public  Vertex(String id){
-        Name=id;
+        name =id;
     }
     public void addOutEdge(Edge outedge){
         OutEdges.add(outedge);
@@ -118,7 +164,7 @@ class Edge{
     public int distance=0;
     public int time=0;
 
-    public Vertex getTovertex() {
+    public Vertex getToVertex() {
         return tovertex;
     }
 
