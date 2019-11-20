@@ -49,12 +49,10 @@ public class Graph<T> {
             handled.put(v, -1);
         }
         distanceMap.put(source, 0);
-
-        Map<Vertex, Integer> qMap = distanceMap;
         Vertex current;
 
         for (Vertex vertex : vertices) {
-            current = getMin(qMap, handled);
+            current = getMin(distanceMap, handled);
             //System.out.println("eval: " + current.name);
             for (Edge edge : current.getOutEdges()) {
                 if (distanceMap.get(current) + edge.distance < distanceMap.get(edge.getToVertex()) && handled.get(current)<1) {

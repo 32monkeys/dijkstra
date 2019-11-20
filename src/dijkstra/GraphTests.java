@@ -35,7 +35,7 @@ public class GraphTests {
     public Graph MakeSmallGraph()
     {
         Graph mygraph= new Graph();
-        /*final Vertex A=mygraph.addVertex("A");
+        final Vertex A=mygraph.addVertex("A");
         final Vertex B= mygraph.addVertex("B");
         final Vertex C =mygraph.addVertex("C");
         final Vertex D = mygraph.addVertex("D");
@@ -53,23 +53,7 @@ public class GraphTests {
         mygraph.newEdge(D,F, 2,7);
         mygraph.newEdge(E,F, 3,6);
 
-
-        final Vertex A=mygraph.addVertex("A");
-        final Vertex B= mygraph.addVertex("B");
-        final Vertex C =mygraph.addVertex("C");
-        final Vertex D = mygraph.addVertex("D");
-        final Vertex E = mygraph.addVertex("E");
-
-        mygraph.newEdge(A,B, 5,  3);
-        mygraph.newEdge(A,C, 10,  3);
-        mygraph.newEdge(B,C, 3,  3);
-        mygraph.newEdge(B,D, 2,  3);
-        mygraph.newEdge(B,E, 9,  3);
-        mygraph.newEdge(C,B, 2,  3);
-        mygraph.newEdge(C,E, 1,  3);
-        mygraph.newEdge(D,E, 6,  3);
-        mygraph.newEdge(E,D, 4,  3);
-        */
+        /*
         final Vertex A = mygraph.addVertex("A");
         final Vertex B = mygraph.addVertex("B");
         final Vertex C = mygraph.addVertex("C");
@@ -86,7 +70,7 @@ public class GraphTests {
         mygraph.newEdge(A,E,20,0);
         mygraph.newEdge(A,F,5,0);
         mygraph.newEdge(A,G,15,0);
-        mygraph.newEdge(B,C,10,0);
+        mygraph.newEdge(B,C,5,0);
         mygraph.newEdge(B,D,10,0);
         mygraph.newEdge(C,B,15,0);
         mygraph.newEdge(C,D,5,0);
@@ -101,7 +85,7 @@ public class GraphTests {
         mygraph.newEdge(I,J,10,0);
         mygraph.newEdge(J,B,5,0);
         mygraph.newEdge(J,C,15,0);
-
+*/
 
 
         return mygraph;
