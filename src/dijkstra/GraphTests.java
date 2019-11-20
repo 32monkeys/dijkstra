@@ -22,13 +22,13 @@ public class GraphTests {
             current=results.getValue().get(current);
             Path.add(0,current);
         }
-        /*for(Vertex v : Path)
+        for(Vertex v : Path)
         {
             System.out.print( v.name);
             if (v!=zink)
                 System.out.print("->");
         }
-*/
+
 
 
     }
