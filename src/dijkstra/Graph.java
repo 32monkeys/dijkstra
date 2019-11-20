@@ -41,33 +41,33 @@ public class Graph<T> {
          */
         Map<Vertex, Vertex> predecessorMap = new HashMap<>();
         Map<Vertex, Integer> distanceMap = new HashMap<>();
-        Map<Vertex, Boolean> handled = new HashMap<>();
+        Map<Vertex, Integer> handled = new HashMap<>();
         // initialize arrays
         for (Vertex v : vertices) {
             distanceMap.put(v, 1000);
             predecessorMap.put(v, null);
-            handled.put(v, false);
+            handled.put(v, -1);
         }
         distanceMap.put(source, 0);
 
         Map<Vertex, Integer> qMap = distanceMap;
-        Vertex current = null;
-        Vertex prev = null;
+        Vertex current;
 
         for (Vertex vertex : vertices) {
             current = getMin(qMap, handled);
             //System.out.println("eval: " + current.name);
             for (Edge edge : current.getOutEdges()) {
-                if (distanceMap.get(current) + edge.distance < distanceMap.get(edge.getToVertex()) && !handled.get(current)) {
+                if (distanceMap.get(current) + edge.distance < distanceMap.get(edge.getToVertex()) && handled.get(current)<1) {
                     if (edge.getToVertex() != current) {
                         System.out.println("we at " + vertex.name + " current: " + current.name + " going to: " + edge.getToVertex().name);
                         distanceMap.put(edge.getToVertex(), distanceMap.get(current) + edge.distance);
                         System.out.println("we set " + edge.getToVertex().name + " to " + (distanceMap.get(current) + edge.distance));
                         predecessorMap.put(edge.getToVertex(), current);
-                        handled.put(current, true);
+                        handled.put(current, 0);
                     }
                 }
             }
+            handled.put(current, 1);
         }
 
         //for (Edge edge : current.getOutEdges()){
@@ -83,7 +83,7 @@ public class Graph<T> {
         return (new Pair<Integer, Map<Vertex, Vertex>>(distanceMap.get(zink), predecessorMap));
     }
 
-    public Vertex getMin(Map<Vertex, Integer> qMap, Map<Vertex, Boolean> done) {
+    public Vertex getMin(Map<Vertex, Integer> qMap, Map<Vertex, Integer> done) {
         // Your code
         /*
         for each vertex dist
@@ -91,9 +91,10 @@ public class Graph<T> {
         int tempMin = 10000;
         Vertex result = null;
         for (Vertex vertex : qMap.keySet()) {
-            if (qMap.get(vertex).intValue() < tempMin && !done.get(vertex).booleanValue()) {
+            if (qMap.get(vertex).intValue() < tempMin && done.get(vertex).intValue()<1) {
                 tempMin = qMap.get(vertex).intValue();
                 result = vertex;
+                done.put(vertex,0);
                 //System.out.println("temp result: "+result.name + qMap.get(vertex).intValue()+" "+tempMin);
             }
         }
