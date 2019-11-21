@@ -55,90 +55,108 @@ public class Graph {
         //Vertex previous = new Vertex("Start"); // Set start to previous
 
         Vertex previous = startNode; // Set previous to be start node
-        Vertex current = startNode;
+        Vertex current = null;
         Vertex next = null;
 
-        distanceMap.put(previous,0);
-        distanceMap.put(current,0); // Set value of previous node
-        predecessorMap.put(startNode,startNode);
+        distanceMap.put(previous,0); // Setting previous distance map to 0
+        predecessorMap.put(startNode,previous); // Initialize the start as "coming from previous" (which at start is start)
 
-        int someDistance = 0;
-//!previous.equals(endNode)
-        while(predecessorMap.containsValue(null)&&(!current.equals(endNode))){ //TODO: what would happen if we start at a point, where we cant evaluate everything?
-            //for(int i=0; i<6;i++) {
-                System.out.println(previous.name+" is having the weight of: "+distanceMap.get(previous));
-                System.out.println("For: " + previous.name + " {");
-                int min = infinity;
-                int weight = infinity;
-                for (Edge edge : predecessorMap.get(previous).getOutEdges()) {
+        ArrayList<Vertex> queue = new ArrayList<Vertex>();
 
+        int minimum = infinity;
+        int weight = infinity;
 
-                    if(!previous.equals(edge.getToVertex())){
-                        current = edge.getToVertex();
+        while(predecessorMap.containsValue(null)){ //TODO: what would happen if we start at a point, where we cant evaluate everything?
+            System.out.println(previous.name+" is having the weight of: "+distanceMap.get(previous));
+            System.out.println("For: " + previous.name + " {");
 
-                        if (predecessorMap.get(current)==null) {
+            for (Edge edge : previous.getOutEdges()) {
+                if (!previous.equals(edge.getToVertex())) {
+                    current = edge.getToVertex(); // Current is set to the end of the edge, if the relation arrow is pointing outwards
+                    if (predecessorMap.get(current) == null) { // check if the end of the edge is null (available)
+                        System.out.print("\t From: " + previous.name + " "); System.out.print("\t To: " + current.name + " ");
+                        System.out.print("\t Distance: " + edge.distance); System.out.println();
 
-                            //System.out.println(current.name + "<----");
-
-                            System.out.print("\t From: " + previous.name + " ");
-                            System.out.print("\t To: " + current.name + " ");
-                            System.out.print("\t Distance: " + edge.distance);
-                            System.out.println();
-                            weight = edge.distance;
-                            if (min >= edge.distance) {
-
-                                min = edge.distance;
-                                next = edge.getToVertex();
-                            }
-
-                            //System.out.println("\t this should be low is: "+distanceMap.get(next));
-                            //System.out.println("\t weight+previous is: "+(distanceMap.get(previous)+weight));
-                            //System.out.println("\t current is: "+distanceMap.get(current));
-                            //System.out.println("\t next is: "+distanceMap.get(next));
-
-                            if((distanceMap.get(previous)+weight)<=distanceMap.get(current)){
-                                System.out.println("\t "+current.name+" is now: "+(distanceMap.get(previous) + weight));
-                                distanceMap.put(current, distanceMap.get(previous) + weight);
-                            } else {
-                                System.out.println("\t removed "+previous.name);
-                                predecessorMap.remove(previous);
-                                current = previous;
-                            }
-
-
+                        if (weight <= distanceMap.get(current)) {
+                            weight = edge.distance+distanceMap.get(previous);
+                            distanceMap.put(current, weight); // Set the weight to distMap
+                            System.out.println("\t " + current.name + " is now: " + weight);
                         } else {
-                            System.out.println("not evaluating: "+current.name);
-                            //current = previous;
+                            predecessorMap.remove(previous); // Removing vertex
+                            System.out.println("\t removed " + previous.name);
+                            // we are not setting a new previous here, the reason is that we instead had a loop that runs from the other vertices.
                         }
+
+                        if (minimum >= edge.distance) {
+                            minimum = edge.distance; // Setting the minimum to be the lowest of the edge distances in this for loop
+                            next = current;
+                        } else if(!current.equals(endNode)) {
+                            queue.add(current); // This is the Queue of the other nodes, that is higher than the minimum
+                        }
+                    } else {
+                        System.out.println("not evaluating: " + current.name);
                     }
-
-
                 }
+            }
 
-                System.out.println("\t Minimum is: " + min + " So we select: " + next.name);
+            System.out.println("i put key: "+previous.name+" the value: "+next.name);
+            if(previous.name.equals("C")&&previous!=null){
+                System.out.println("fucking shit");
+                System.out.println(predecessorMap.get(next.name));
+                System.exit(0);
+            }
+            if(previous==next&&!next.equals(endNode)){
+                if(queue.size()==0) System.err.println("wtf we have no Q!!! :o");
+                System.out.println("Now we run the KØØØ");
+                previous = queue.get(0);
+                queue.remove(0);
+                System.out.println("We fucking jumps mate");
+
+            } else {
+                previous = next; // Set the previous to be the current
+
+                System.out.println("\t Minimum is: " + minimum + " So we select: " + next.name);
                 System.out.println("}");
                 System.out.println();
 
+                System.out.println(next.name+" is "+distanceMap.get(next));
 
-            // TODO: make foreach here
-            //for(edge.)
+                System.out.println("Kø: "+queue.size());
+                for(Vertex q : queue){
+                    System.out.println("This Kø -> "+q.name);
+                }
 
-                current = next;
-                previous = current;
-                predecessorMap.put(previous,current);
-            System.out.println("i put key: "+previous.name+" the value: "+current.name);
-                //predecessorMap.put(previous,current);
 
-            //}
+
+            }
+
+            predecessorMap.put(next,previous);
+
+
+            System.out.println("WEEEEEEEEEE HAAAAAAAAAAAAS "+predecessorMap.containsValue(null));
+for(Vertex lorten : vertices){
+    if(predecessorMap.get(lorten)!=null){
+        System.out.println(predecessorMap.get(lorten).name);
+    }
+}
+
+
+
+
         }
 
 
         /////////////////////////////////////////////////////////////////////////////////
-        System.exit(0); // remove this when done
-        return null;
-        //return (new Pair<Integer,Map<Vertex,Vertex>> (distanceMap.get(startNode), predecessorMap));
+        //System.exit(0); // remove this when done
+        //return null;
+        return (new Pair<Integer,Map<Vertex,Vertex>> (distanceMap.get(startNode), predecessorMap));
     }
-    public Vertex getmin(Map<Vertex,Integer> qmap){
+
+    public Vertex findMin(){
+        return null;
+    }
+
+    public Vertex getMin(Map<Vertex,Integer> qmap){
         // Your code
         return null;
     }

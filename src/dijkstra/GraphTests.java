@@ -17,12 +17,20 @@ public class GraphTests {
         Vertex current =endNode;
         ArrayList<Vertex> Path= new ArrayList<>();
         Path.add(endNode);
+        int yolo = 0;
+/*
         while ((current != startNode) && (results.getValue().get(current)!=null))
         {
-            //System.out.println(current.name);
+            System.out.println("So we start at "+current.name+" for no fucking reason");
             current=results.getValue().get(current);
             Path.add(0,current);
+            yolo++;
+            if(yolo>3) {
+                System.exit(0);
+            }
         }
+        */
+        System.out.println("our path is fucked: "+Path.size());
         for(Vertex v : Path)
         {
             System.out.print( v.name);
