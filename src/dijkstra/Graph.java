@@ -66,7 +66,10 @@ public class Graph {
         int minimum = infinity;
         int weight = infinity;
 
-        while(predecessorMap.containsValue(null)){ //TODO: what would happen if we start at a point, where we cant evaluate everything?
+        while(predecessorMap.containsValue(null)){
+            //TODO: what would happen if we start at a point, where we cant evaluate everything?
+            // TODO: FIX QUEUE, Make a foreach node check after evaluating every network from the startNode
+            // TODO: print a message if the system couldnt find endNode, fix the remove script
             System.out.println(previous.name+" is having the weight of: "+distanceMap.get(previous));
             System.out.println("For: " + previous.name + " {");
 
