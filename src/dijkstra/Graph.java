@@ -59,7 +59,7 @@ public class Graph {
         Vertex next = null;
 
         distanceMap.put(previous,0); // Setting previous distance map to 0
-        predecessorMap.put(startNode,previous); // Initialize the start as "coming from previous" (which at start is start)
+        predecessorMap.put(startNode,new Vertex("Start")); // Initialize the start as "coming from previous" (which at start is start)
 
         ArrayList<Vertex> queue = new ArrayList<Vertex>();
 
@@ -90,7 +90,7 @@ public class Graph {
                         if (minimum >= edge.distance) {
                             minimum = edge.distance; // Setting the minimum to be the lowest of the edge distances in this for loop
                             next = current;
-                        } else if(!current.equals(endNode)) {
+                        } else if(predecessorMap.get(current)==null&&!current.equals(endNode)) {
                             queue.add(current); // This is the Queue of the other nodes, that is higher than the minimum
                         }
                     } else {
@@ -99,67 +99,39 @@ public class Graph {
                 }
             }
 
-            System.out.println("i put key: "+previous.name+" the value: "+next.name);
-            if(previous.name.equals("C")&&previous!=null){
-                System.out.println("fucking shit");
-                System.out.println(predecessorMap.get(next.name));
-                System.exit(0);
+            System.out.println("Queue size: "+queue.size());
+            for(Vertex q : queue){
+                System.out.println("In Queue-> "+q.name);
             }
+
+
             if(previous==next&&!next.equals(endNode)){
-                if(queue.size()==0) System.err.println("wtf we have no Q!!! :o");
-                System.out.println("Now we run the KØØØ");
+
+                System.out.println("We jump (queue)");
+
+                next = queue.get(0);
+
+                System.out.println("Jumper: i put key: "+next.name+" the value: "+predecessorMap.get(previous).name);
+                predecessorMap.put(next,predecessorMap.get(previous));
+                current = queue.get(0);
                 previous = queue.get(0);
                 queue.remove(0);
-                System.out.println("We fucking jumps mate");
 
             } else {
-                previous = next; // Set the previous to be the current
-
+                System.out.println("i put key: "+next.name+" the value: "+previous.name);
+                predecessorMap.put(next,previous);
+                previous = next;
                 System.out.println("\t Minimum is: " + minimum + " So we select: " + next.name);
                 System.out.println("}");
                 System.out.println();
 
-                System.out.println(next.name+" is "+distanceMap.get(next));
-
-                System.out.println("Kø: "+queue.size());
-                for(Vertex q : queue){
-                    System.out.println("This Kø -> "+q.name);
-                }
-
-
-
             }
-
-            predecessorMap.put(next,previous);
-
-
-            System.out.println("WEEEEEEEEEE HAAAAAAAAAAAAS "+predecessorMap.containsValue(null));
-for(Vertex lorten : vertices){
-    if(predecessorMap.get(lorten)!=null){
-        System.out.println(predecessorMap.get(lorten).name);
-    }
-}
-
-
-
 
         }
 
-
-        /////////////////////////////////////////////////////////////////////////////////
-        //System.exit(0); // remove this when done
-        //return null;
         return (new Pair<Integer,Map<Vertex,Vertex>> (distanceMap.get(startNode), predecessorMap));
     }
 
-    public Vertex findMin(){
-        return null;
-    }
-
-    public Vertex getMin(Map<Vertex,Integer> qmap){
-        // Your code
-        return null;
-    }
 }
 
 
